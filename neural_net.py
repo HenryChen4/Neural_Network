@@ -1,6 +1,5 @@
 import numpy as np
 from activations import Sigmoid, Linear, Relu, Costs
-import matplotlib.pyplot as plt
 
 class Layer:
     def __init__(self, units, activation):
@@ -25,10 +24,6 @@ class Layer:
         del_J_w = np.matmul(prev_layer.neurons, del_J_z.T)
         del_J_b = del_J_z
         prev_del_J_z = np.multiply(np.matmul(self.W_l.T, del_J_z), prev_layer.activation.del_g_z(prev_layer.neurons))
-
-        # print("del_J_w")
-        # print(del_J_w)
-
         self.W_l -= alpha * del_J_w.T
         self.B_l -= alpha * del_J_b
 
@@ -69,45 +64,42 @@ class Model:
         x_in_layer = Layer(x_in.shape[0], Linear)
         x_in_layer.neurons = x_in
 
-        # print("+++++++Back-propagation+++++++")
-
         for l in range(self.layers.shape[0]-1, -1, -1):
             prev_layer = x_in_layer if l == 0 else self.layers[l-1]
-
-            # print(f"backprop thru layer {l}")
-            # print("del_J_z")
-            # print(del_J_z)
-
             del_J_z = self.layers[l].back_prop(del_J_z, prev_layer, alpha)
 
-        # print("++++++++++++++++++++++++++++++")
-
-    def fit(self, X_train, Y_train, alpha, epochs, seed=10):
+    def fit(self, X_train, Y_train, X_test, Y_test, alpha, epochs, seed=10):
         n = X_train.shape[1]
         m = X_train.shape[0]
         self.initialize(n, seed)
     
-        J_hist = []
+        train_hist = []
+        test_hist = []
 
         for c in range(epochs):
-            all_y_hat = []
-            J = 0
+            train_preds = []
+            test_preds = []
+
+            for i in range(X_test.shape[0]):
+                pred = self.predict(X_test[i])
+                test_preds.append(pred)
+        
+            test_hist.append(Costs.sigmoid_cost(test_preds, Y_test))
+
             for i in range(X_train.shape[0]):
-                y_hat = self.forward_propagate(X_train[i])
-                all_y_hat.append(y_hat)
-
-                # print("Input")
-                # print(X_train[i])
-                # print("\n")
-                # self.summarize()
-
+                pred = self.forward_propagate(X_train[i])
+                train_preds.append(pred)
                 self.back_propagate(m, X_train[i], Y_train[i], alpha)
 
-            J = Costs.sigmoid_cost(all_y_hat, Y_train)
-            J_hist.append(J)
+            train_hist.append(Costs.sigmoid_cost(train_preds, Y_train))
+
             print(f"Epoch {c+1} complete!")
         
-        return J_hist
+        return train_hist, test_hist
+        
+    def predict(self, x_test):
+        prediction = self.forward_propagate(x_test)
+        return prediction
 
     def summarize(self):
         c = 0
