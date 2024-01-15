@@ -1,17 +1,11 @@
 <h1>Neural Network</h1>
 <h3>About</h3>
 <p>
-    Neural network library that can create, train, and test different models. All hyperparameters that can be adjusted are adjustable. While learning about deep learning and
-    neural networks, most tutorials prompted me to use Tensorflow and Keras. There was too much going in these frameworks for my purposes ~ learning deeplearning. Instead, I felt
-    I could better use the time sifting through the mathematical intricacies and vectorization techniques of deeplearning and multilayered neural networks. That process culminated 
-    with this project that is syntactically similar to Tensorflow and Keras and employs the use of various equations detailed in the book, Neural Networks and Deep Learning.
+    Neural network library that can create, train, and test different models. All hyperparameters that can be adjusted are adjustable. Syntax is similar to Tensorflow.
 </p>
-<p>A few notes on the development process: </p>
+<p>A few notes to keep in mind: </p>
 <ul>
-    <li>All data within this project are treated as tensors, however a class was never created for this type.</li>
-    <li>All equations surrounding backprop were followed mostly to the letter. A few equations required an extra transpose or swapped parameters however functionality remains.</li>
-    <li>Weight and bias initialization only use Kaiming initialization due to the prevalence of Relu activations.</li>
-    <li>Network was built to perform binary classification; more activations for other uses can be added.</li>
+    <li>Only relu and sigmoid activations are implemented.</li>
     <li>Backpropagation is performed in single steps.</li>
 </ul>
 <h3>Usage</h3>
