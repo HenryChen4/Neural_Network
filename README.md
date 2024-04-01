@@ -3,11 +3,6 @@
 <p>
     Neural network library that can create, train, and test different models. All hyperparameters that can be adjusted are adjustable. Syntax is similar to Tensorflow.
 </p>
-<p>A few notes to keep in mind: </p>
-<ul>
-    <li>Only relu and sigmoid activations are implemented.</li>
-    <li>Backpropagation is performed in single steps.</li>
-</ul>
 <h3>Usage</h3>
 <h4>Classes</h4>
 <ul>
