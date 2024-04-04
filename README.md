@@ -1,7 +1,7 @@
 <h1>Neural Network</h1>
 <h3>About</h3>
 <p>
-    Neural network library that can create, train, and test different models. All hyperparameters that can be adjusted are adjustable. Syntax is similar to Tensorflow.
+    Light neural network library that can create, train, and test different models.
 </p>
 <h3>Usage</h3>
 <h4>Classes</h4>
